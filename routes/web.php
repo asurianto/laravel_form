@@ -18,4 +18,7 @@ Route::get('/','HomeController@index');
 Route::get('add-form','HomeController@addForm')->name('add-form');
 Route::get('update-form/{id}/{status}','HomeController@updateForm')->name('update-form');
 Route::post('save-form','HomeController@saveForm')->name('save-form');
+
+Route::get('/admin/user','AdminController@viewUser')->name('admin-list-user');
+Route::get('/admin/user/{id}/{active}','AdminController@updateUserStatus')->name('admin-update-user-status');
 Auth::routes();

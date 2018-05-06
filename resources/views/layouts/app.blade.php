@@ -51,6 +51,13 @@
                                 </a>
                             </li>
                         @endif
+                        @if(Auth::user()->hasAnyRole(['admin']))
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link" href="{{ route('admin-list-user') }}" role="button">
+                                    List Users
+                                </a>
+                            </li>
+                        @endif                        
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
 
 class RegisterController extends Controller
 {
@@ -28,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -49,9 +54,21 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'nip' => 'required|max:20|unique:users',
             'name' => 'required|string|max:255',
+            'area' => 'required|max:65',
+            'campus' => 'required|max:100',
+            'dop' => 'required',
+            'dob' => 'required',
+            'address' => 'required|max:100',
+            'post_code' => 'required',
+            'phone_home' => 'required',
+            'phone' => 'required',
+            'rekening' => 'required',            
+            'bank' => 'required|max:65',            
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            
         ]);
     }
 
@@ -63,14 +80,46 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
+        $user = User::create([      
+            'nip' => $data['nip'],
             'name' => $data['name'],
+            'area' => $data['area'],
+            'campus' => $data['campus'],
+            'dop' => $data['dop'],
+            'dob' => date('Y-m-d',strtotime($data['dob'])),
+            'address' => $data['address'],
+            'post_code' => $data['post_code'],
+            'phone_home' => $data['phone_home'],
+            'phone' => $data['phone'],
+            'rekening' => $data['rekening'],            
+            'bank' => $data['bank'],
             'email' => $data['email'],
+            'active' => 0,
             'password' => Hash::make($data['password']),
         ]);
         $user
             ->roles()
             ->attach(Role::where('name', 'user')->first());
-        return $user;
+            return $user;
+    }
+
+    // public function register(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+
+    //     event(new Registered($user = $this->create($request->all())));
+
+    //     return redirect('/');
+    // }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+
+        return view('auth.login');
     }
 }
