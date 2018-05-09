@@ -44,6 +44,16 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link" href="{{ route('message') }}" role="button">
+                                Messages
+                                @isset($notif)
+                                    @if($notif->count>0)
+                                        <sup style="color: white;background-color: red;border-radius: 100%;padding: 1px 5px;">{{ $notif->count }}</sup>
+                                    @endif  
+                                @endisset
+                            </a>
+                        </li>
                         @if(Auth::user()->hasAnyRole(['user']))
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link" href="{{ route('add-form') }}" role="button">

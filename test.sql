@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2018 at 10:24 AM
+-- Generation Time: May 09, 2018 at 05:12 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -57,6 +57,31 @@ INSERT INTO `form_dana` (`id`, `user_id`, `name`, `nip`, `area`, `rekening`, `ba
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `receiver_id` int(10) UNSIGNED NOT NULL,
+  `message` varchar(300) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `receiver_id`, `message`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Sudah di transfer sebesar XXXXX', '2018-05-08 08:43:22', '2018-05-08 08:43:22'),
+(5, 1, 'ASDASDASDAS', '2018-05-09 02:21:00', '2018-05-09 02:21:00'),
+(8, 1, 'XAXAXAXAAXAAAAAAA', '2018-05-09 02:47:19', '2018-05-09 02:47:19'),
+(10, 1, 'DDDDDDD', '2018-05-09 02:49:32', '2018-05-09 02:49:32'),
+(11, 1, 'AFAFAFAFAAFA', '2018-05-09 02:49:36', '2018-05-09 02:49:36');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -75,6 +100,27 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2018_04_10_030110_create_roles_table', 1),
 (4, '2018_04_10_061749_create_role_user_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `count` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `user_id`, `count`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
 
 -- --------------------------------------------------------
 
@@ -164,8 +210,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nip`, `area`, `rekening`, `bank`, `campus`, `dop`, `dob`, `address`, `post_code`, `phone_home`, `phone`, `email`, `password`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'User Name', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'Iatuymo0gqrqXbHmrzdmvWbzhWQFLfjyUwJhd484Sa7tEBda6DD1PkjY5xT9', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(2, 'Admin Name', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'U58rXbyiBWqVro9oe6S26XqS1u75mzlLnWrx7VZTL2gXFgJ8MYrA3h7Kf97j', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(1, 'User Name', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'GwZ5hPFspbhHlTQOsOWR374x8FhYi3qX7ESBjxCsdzNIT3fNkR4TOaginx06', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(2, 'Admin Name', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'LFNpu4zohjwcO3VJwJNt8DoGv7en5LnX30cXDSpA1tvBwJNOeWo8hPISAalL', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
 (4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 0, 'kIDR0nJ52zNt4SrA9lbPYHwqxa78Rsx9uTWlucx2yX9E9ghprLt9bfdkHRdX', '2018-05-06 00:19:54', '2018-05-06 00:19:54');
 
 --
@@ -179,10 +225,24 @@ ALTER TABLE `form_dana`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `receiver_id` (`receiver_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -219,10 +279,20 @@ ALTER TABLE `users`
 ALTER TABLE `form_dana`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -232,12 +302,28 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `role_user`
 --
 ALTER TABLE `role_user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;COMMIT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `notification`
+--
+ALTER TABLE `notification`
+  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
