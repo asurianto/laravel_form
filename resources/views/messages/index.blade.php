@@ -11,7 +11,7 @@
                                 List Messages
                         </div>
                         <div class="col-2">
-                            <a class="float-right"  href="{{ route('add-message') }}">+</a>
+                            <a class="float-right"  href="{{ route('add-message') }}">Create Message</a>
                         </div>
                     </div>
                 </div>

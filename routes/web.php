@@ -14,10 +14,16 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/','HomeController@index');
+Route::get('/','HomeController@index')->name('home');
 Route::get('add-form','HomeController@addForm')->name('add-form');
+Route::get('detail-form/{id}','HomeController@detailForm')->name('detail-form');
 Route::get('update-form/{id}/{status}','HomeController@updateForm')->name('update-form');
 Route::post('save-form','HomeController@saveForm')->name('save-form');
+
+//
+Route::get('add-pengunduran-diri-form','FormPengunduranDiriController@addForm')->name('add-pengunduran-diri-form');
+Route::get('detail-pengunduran-diri-form/{id}','FormPengunduranDiriController@detailForm')->name('detail-pengunduran-diri-form');
+Route::post('save-pengunduran-diri-form','FormPengunduranDiriController@saveForm')->name('save-pengunduran-diri-form');
 
 // Messages
 Route::get('/messages','MessageController@index')->name('message');

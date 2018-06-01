@@ -57,9 +57,17 @@
                         </li>
                         @if(Auth::user()->hasAnyRole(['user']))
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link" href="{{ route('add-form') }}" role="button">
-                                    Add Form
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Add Form <span class="caret"></span>
                                 </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('add-form') }}" >
+                                        Peminjaman
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('add-pengunduran-diri-form') }}" >
+                                        Pengunduran Diri
+                                    </a>
+                                </div>
                             </li>
                         @endif
                         @if(Auth::user()->hasAnyRole(['admin']))

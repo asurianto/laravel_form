@@ -22,11 +22,14 @@ class HomeController extends Controller
     {
         $request->user()->authorizeRoles(['admin', 'user']);
         $user = $request->user();
+        $data = (object) array('dana','pengunduran_diri');
         if($request->user()->hasAnyRole(['user'])){
-            $data = DB::table('form_dana')->where('user_id',$user->id)->get();
+            $data->dana = DB::table('form_dana')->where('user_id',$user->id)->get();
+            $data->pengunduran_diri = DB::table('form_pengunduran_diri')->where('user_id',$user->id)->get();
         }
         else{
-            $data =  DB::table('form_dana')->where('status',0)->get();
+            $data->dana =  DB::table('form_dana')->where('status',0)->get();
+            $data->pengunduran_diri =  DB::table('form_pengunduran_diri')->get();
         }
         return view('admin.home')->with('data',$data);
     }
@@ -35,6 +38,12 @@ class HomeController extends Controller
     {
         $request->user()->authorizeRoles(['admin', 'user']);
         return view('addForm');
+    }
+
+    public function detailForm(Request $request,$id)
+    {
+        $data = DB::table('form_dana')->where('id',$id)->first();
+        return view('admin.detailForm')->with('data',$data);    
     }
 
     public function saveForm(Request $request)

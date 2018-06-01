@@ -19,6 +19,14 @@
                             {{session('message')}}
                         </div>
                     @endif
+                    
+                    @if (count($data->dana) > 0)
+                    <!-- Form peminjaman -->
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="name" class="col-form-label text-md-center">Form Peminjaman Dana</label>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="name" class="col-md-4 col-form-label text-md-center">Nama</label>
@@ -27,12 +35,11 @@
                             @endif
                         </div>
                     </div>
-                    @isset ($data)
-                        @foreach($data as $record)
+                        @foreach($data->dana as $record)
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="name" class="col-md-4 col-form-label text-md-center">{{$record->name}}</label>                        
                                 @if(Auth::user()->hasAnyRole(['user']))
+                                <label for="name" class="col-md-4 col-form-label text-md-center">{{$record->name}}</label>                        
                                 <label for="name" class="col-md-4 col-form-label text-md-center">
                                     @if($record->status == 1)
                                         Accepted
@@ -43,7 +50,8 @@
                                     @endif
                                 </label>
                                 @endif
-                                @if(Auth::user()->hasAnyRole(['admin']))
+                                @if(Auth::user()->hasAnyRole(['admin']))                            
+                                    <label for="name" class="col-md-4 col-form-label text-md-center"><a href="{{ route('detail-form',['id'=>$record->id]) }}">{{$record->name}}</a></label>                        
                                     <label for="name" class="col-form-label"><a href="{{ route('update-form',['id'=>$record->id,'status'=>1 ]) }}">Accept</a></label>
                                     <label for="name" class="col-form-label text-center">|</label>
                                     <label for="name" class="col-form-label text-md-right"><a href="{{ route('update-form',['id'=>$record->id,'status'=>2 ]) }}">Reject</a></label>
@@ -51,7 +59,34 @@
                             </div>
                         </div>
                         @endforeach
-                    @endisset
+                    @endif
+
+                    
+                    @if (count($data->pengunduran_diri) > 0)
+                    <!-- Form pengundaran diri -->
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="name" class="col-form-label text-md-center">Form Pengunduran Diri</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="name" class="col-md-4 col-form-label text-md-center">Nama</label>
+                        </div>
+                    </div>
+                        @foreach($data->pengunduran_diri as $record)
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                @if(Auth::user()->hasAnyRole(['user']))
+                                <label for="name" class="col-md-4 col-form-label text-md-center">{{$record->name}}</label>                        
+                                @endif
+                                @if(Auth::user()->hasAnyRole(['admin']))                            
+                                    <label for="name" class="col-md-4 col-form-label text-md-center"><a href="{{ route('detail-pengunduran-diri-form',['id'=>$record->id]) }}">{{$record->name}}</a></label>                        
+                                @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
