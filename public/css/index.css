@@ -1,9 +1,64 @@
 #app > nav{
-    background-color: #e7da00;
+    background-color: #006ce7c7;
+}
+
+#app > nav li > a,#app > nav > .container > a{
+    color:white !important
 }
 
 .btn-primary {
-    background-color: #e7da00 !important;
-    border-color: #e7da00 !important;
-    color : black;
+    background-color: #006ce7c7 !important;
+    border-color: #006ce7c7 !important;
+    color : white;
+}
+
+.btn-primary a{
+    color: white !important;
+    text-decoration: none;
+}
+
+.slide-content{
+    margin-bottom:15px;
+}
+
+.w3-black, .w3-hover-black:hover {
+    color: #fff!important;
+    background-color:transparent !important;
+}
+.w3-display-right {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(0%,-50%);
+    -ms-transform: translate(0%,-50%);
+    margin-right:15px;
+}
+.w3-display-left {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(0%,-50%);
+    -ms-transform: translate(-0%,-50%);
+    margin-left:15px;
+}
+.w3-btn, .w3-button {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.w3-btn, .w3-button {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
 }

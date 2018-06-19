@@ -30,11 +30,13 @@ class MessageController extends Controller
             $data =  DB::table('messages')
             ->join('users','users.id','=','messages.receiver_id')
             ->select('users.name','messages.id','messages.message')
+            ->orderBy('messages.updated_at','desc')
             ->get();
         }
         else{
             $data =  DB::table('messages')
             ->where('receiver_id',$user->id)
+            ->orderBy('updated_at','desc')
             ->get();
             $notif = $this->notification->delete($user->id);
         }

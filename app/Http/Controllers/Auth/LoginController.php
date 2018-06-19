@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -37,6 +38,30 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {           
+        // $slider = (object) array('path');
+        
+        $slider = [];
+        $data = DB::table('banner')->get();
+        foreach($data as $key=>$value){
+            $slider[$key] =  $value->name;
+        }
+        return view('auth.login')->with('slider',$slider);
+    }
+
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'nip' => 'required', 'password' => 'required'
+        ]);
+        if (Auth::attempt(['nip' => $request->nip, 'password' => $request->password,'active'=>1]) )
+        {
+            return redirect()->intended('/');
+        }
+        else return redirect()->intended('/login');
     }
 
     public function credentials(Request $request)

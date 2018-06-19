@@ -30,25 +30,27 @@
                     @endif
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <label for="name" class="col-md-4 col-form-label text-md-center">Message</label>
                             @if(Auth::user()->hasAnyRole(['admin']))
-                                <label for="name" class="col-md-4 col-form-label text-md-center">Receiver</label>
+                                <label for="name" class="col-4 col-form-label text-md-center">Message</label>
+                                <label for="name" class="col-4 col-form-label text-md-center">Receiver</label>
                             @endif
                             @if(Auth::user()->hasAnyRole(['user']))
-                                <label for="name" class="col-md-4 col-form-label text-md-center">Received At</label>
+                                <label for="name" class="col-8 col-form-label text-md-center">Message</label>
+                                <label for="name" class="col-3 col-form-label text-md-center">Received At</label>
                             @endif
                         </div>
                     </div>
                     @foreach($data as $record)
                     <div class="form-group row">
                         <div class="col-md-12">
-                                <label for="name" class="col-md-4 col-form-label text-md-center">{{$record->message}}</label>                        
                             @if(Auth::user()->hasAnyRole(['admin']))
-                                <label for="name" class="col-md-4 col-form-label text-md-center">{{$record->name}}</label>           
+                                <label for="name" class="col-4 col-form-label text-md-center">{{$record->message}}</label>                        
+                                <label for="name" class="col-4 col-form-label text-md-center">{{$record->name}}</label>           
                                 <label for="name" class="col-form-label text-md-right"><a href="{{ route('delete-message',['id'=>$record->id ]) }}">Delete</a></label>
                             @endif
                             @if(Auth::user()->hasAnyRole(['user']))
-                                <label for="name" class="col-md-4 col-form-label text-md-center">{{$record->created_at}}</label>           
+                                <label for="name" class="col-8 col-form-label text-md-center">{{$record->message}}</label>                        
+                                <label for="name" class="col-3 col-form-label text-md-center">{{$record->created_at}}</label>           
                             @endif
                         </div>
                     </div>

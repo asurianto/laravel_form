@@ -17,10 +17,17 @@
 Route::get('/','HomeController@index')->name('home');
 Route::get('add-form','HomeController@addForm')->name('add-form');
 Route::get('detail-form/{id}','HomeController@detailForm')->name('detail-form');
-Route::get('update-form/{id}/{status}','HomeController@updateForm')->name('update-form');
+Route::get('accept-form/{id}/{status}','HomeController@acceptForm')->name('accept-form');
+Route::post('update-accept-form/{id}/{status}','HomeController@updateAcceptForm')->name('update-accept-form');
+Route::get('update-reject-form/{id}/{status}','HomeController@updateRejectForm')->name('update-reject-form');
 Route::post('save-form','HomeController@saveForm')->name('save-form');
 
-//
+// Edit Profile
+Route::get('profile/{id}','HomeController@detailProfile')->name('detail-profile');
+Route::get('edit-profile/{id}','HomeController@editProfile')->name('edit-profile');
+Route::post('profile/{id}','HomeController@updateProfile')->name('update-profile');
+
+// Form Pengunduran Diri
 Route::get('add-pengunduran-diri-form','FormPengunduranDiriController@addForm')->name('add-pengunduran-diri-form');
 Route::get('detail-pengunduran-diri-form/{id}','FormPengunduranDiriController@detailForm')->name('detail-pengunduran-diri-form');
 Route::post('save-pengunduran-diri-form','FormPengunduranDiriController@saveForm')->name('save-pengunduran-diri-form');

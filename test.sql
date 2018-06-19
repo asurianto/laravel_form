@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2018 at 03:10 PM
+-- Generation Time: Jun 19, 2018 at 09:27 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -21,6 +21,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banner`
+--
+
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `banner`
+--
+
+INSERT INTO `banner` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, '1.jpg', '2018-06-19 04:05:02', '2018-06-19 03:28:06'),
+(2, '2.jpg', '2018-06-19 04:05:12', '2018-06-19 03:28:06'),
+(3, '3.jpg', '2018-06-19 04:05:18', '2018-06-19 03:28:26');
 
 -- --------------------------------------------------------
 
@@ -52,7 +74,7 @@ CREATE TABLE `form_dana` (
 
 INSERT INTO `form_dana` (`id`, `user_id`, `name`, `nip`, `area`, `rekening`, `bank`, `dana`, `terbilang`, `keperluan`, `cicilan`, `tanggal_dana`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Form 1', '123456789', 'XAXAXAXAXA', '5271246578', 'BCA', 10000000, 'Sepuluh Juta Rupiah', 'Dana kebutuhan', 6, '2018-04-11', 1, '2018-04-27 07:15:38', '0000-00-00 00:00:00'),
-(2, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 132456789, 'Uang somtehing', 'keprluan dadakan', 6, '2018-03-20', 0, '2018-04-23 18:20:55', '2018-04-23 18:20:55');
+(2, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 132456789, 'Uang somtehing', 'keprluan dadakan', 6, '2018-03-20', 1, '2018-06-16 16:48:02', '2018-04-23 18:20:55');
 
 -- --------------------------------------------------------
 
@@ -100,7 +122,8 @@ INSERT INTO `messages` (`id`, `receiver_id`, `message`, `created_at`, `updated_a
 (5, 1, 'ASDASDASDAS', '2018-05-09 02:21:00', '2018-05-09 02:21:00'),
 (8, 1, 'XAXAXAXAAXAAAAAAA', '2018-05-09 02:47:19', '2018-05-09 02:47:19'),
 (10, 1, 'DDDDDDD', '2018-05-09 02:49:32', '2018-05-09 02:49:32'),
-(11, 1, 'AFAFAFAFAAFA', '2018-05-09 02:49:36', '2018-05-09 02:49:36');
+(11, 1, 'AFAFAFAFAAFA', '2018-05-09 02:49:36', '2018-05-09 02:49:36'),
+(12, 1, 'Pengajuan peminjaman ada sudah di setujui, dana akan di trf pada tgl: 2018-08-16', '2018-06-16 16:48:02', '2018-06-16 16:48:02');
 
 -- --------------------------------------------------------
 
@@ -143,7 +166,7 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `count`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
+(1, 1, 0, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
 
 -- --------------------------------------------------------
 
@@ -233,13 +256,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nip`, `area`, `rekening`, `bank`, `campus`, `dop`, `dob`, `address`, `post_code`, `phone_home`, `phone`, `email`, `password`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'User Name', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'M1ORblB127UEFMdNRFtzPeug76SqDkxIHYus1ugH4kyMl9rWnM45i71zkdtg', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(2, 'Admin Name', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'ojxcyBJW1aMriqUEChPHCKiCL8CfMFwEfuuYIJBJRep2cEybhUcqwv30GYtk', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 0, 'kIDR0nJ52zNt4SrA9lbPYHwqxa78Rsx9uTWlucx2yX9E9ghprLt9bfdkHRdX', '2018-05-06 00:19:54', '2018-05-06 00:19:54');
+(1, 'User Name', '1601217123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'CXtfaoiwY9CkBTQhnBBjK3P5kd6ijHDgipc1gUDZZtDROWUIwaIfd82aySm0', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'FGzZRiIPwCVdlq3p1YdbwJ3r5shuoYBmnTLmHw1vft0A0A6dzINGGEi8Clyw', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, 'fEXhbohx0Vv8TeC1i3Z5d9FRJ2VVsKk5QF07rNG06c43GodioHiFidP0NvAJ', '2018-05-06 00:19:54', '2018-05-06 00:19:54');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `banner`
+--
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `form_dana`
@@ -304,6 +333,11 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `banner`
+--
+ALTER TABLE `banner`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `form_dana`
 --
 ALTER TABLE `form_dana`
@@ -317,7 +351,7 @@ ALTER TABLE `form_pengunduran_diri`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `migrations`
 --

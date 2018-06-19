@@ -24,7 +24,6 @@
          
                     <div class="form-group row">
                         <label for="alamat" class="col-md-4 col-form-label text-md-right">Alamat</label>
-
                         <div class="col-md-6">
                             <label class="col-form-label">
                                 {{ $data->alamat }}
