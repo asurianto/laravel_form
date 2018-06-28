@@ -119,7 +119,11 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         // $this->guard()->login($user);
-
-        return view('auth.login');
+        $slider = [];
+        $data = DB::table('banner')->get();
+        foreach($data as $key=>$value){
+            $slider[$key] =  $value->name;
+        }
+        return view('auth.login')->with('slider',$slider);
     }
 }
