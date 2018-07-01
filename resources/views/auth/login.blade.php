@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 slide-content">
+        <div class="col-md-7 slide-content" style="display: -webkit-box;margin:unset !important;">
             @foreach($slider as $value)
                 <img class="slider" src="{{asset('image/'.$value)}}" alt="Smiley face" style="width:100%!important;">
             @endforeach                
@@ -11,7 +11,7 @@
             <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
         </div>
         
-        <div class="col-md-8">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
@@ -22,7 +22,7 @@
                         <div class="form-group row">
                             <label for="nip" class="col-sm-4 col-form-label text-md-right">NIP</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input id="nip" type="text" class="form-control{{ $errors->has('nip') ? ' is-invalid' : '' }}" name="nip" value="{{ old('nip') }}" required autofocus>
 
                                 @if ($errors->has('nip'))
@@ -36,7 +36,7 @@
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                 @if ($errors->has('password'))
