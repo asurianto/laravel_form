@@ -23,8 +23,10 @@ class AdminController extends Controller
         $request->user()->authorizeRoles(['admin']);
         $data =  DB::table('users')
                 ->join('role_user','users.id','=','role_user.user_id')
+                ->join('form_dana','users.id','=','form_dana.user_id')
                 ->where('role_user.role_id',1)
-                ->select('users.*')
+                ->select('users.id',DB::raw('min(users.name) as name,min(users.nip) as nip,min(users.active) as active,SUM(form_dana.dana) as total_dana'))
+                ->groupBy('users.id')
                 ->get();
         return view('admin.user.index')->with('data',$data);
     }

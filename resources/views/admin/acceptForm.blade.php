@@ -5,14 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Accept Form</div>
+                @if($data->type_form == 'dana')
+                <div class="card-header">Accept Form Dana</div>
+                @else
+                <div class="card-header">Accept Form Pengunduran Diri</div>
+                @endif
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('update-accept-form',['id'=>$data->id,'status'=>$data->status]) }}">
+                    @if($data->type_form == 'dana')
+                        <form method="POST" action="{{ route('update-accept-form',['id'=>$data->id,'status'=>$data->status,'type_form'=>$data->type_form]) }}">
                         @csrf   
                         <input id="receiver" type="text" class="col-md-8 form-control" name="receiver" value="{{ $data->receiver }}" hidden>                                                     
                         <div class="form-group row">
@@ -30,11 +35,28 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                   Submit
+                                Submit
                                 </button>
                             </div>
                         </div>
-                    </form>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('update-accept-form',['id'=>$data->id,'status'=>$data->status,'type_form'=>$data->type_form]) }}">
+                            @csrf   
+                            <input id="receiver" type="text" class="col-md-8 form-control" name="receiver" value="{{ $data->receiver }}" hidden>                                                     
+                            <div class="form-group row">
+                                <label for="name" class="col-md-12 col-form-label text-md-center">Are you sure accept {{$data->username}} to resign ?</label>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-5">
+                                    <button type="submit" class="btn btn-primary">
+                                    Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+                    
                 </div>
             </div>
         </div>

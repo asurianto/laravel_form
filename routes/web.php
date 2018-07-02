@@ -17,9 +17,11 @@
 Route::get('/','HomeController@index')->name('home');
 Route::get('add-form','HomeController@addForm')->name('add-form');
 Route::get('detail-form/{id}','HomeController@detailForm')->name('detail-form');
-Route::get('accept-form/{id}/{status}','HomeController@acceptForm')->name('accept-form');
-Route::post('update-accept-form/{id}/{status}','HomeController@updateAcceptForm')->name('update-accept-form');
-Route::get('update-reject-form/{id}/{status}','HomeController@updateRejectForm')->name('update-reject-form');
+Route::get('history-form','HomeController@historyForm')->name('history-form');
+
+Route::get('accept-form/{id}/{status}/{type_form}','HomeController@acceptForm')->name('accept-form');
+Route::post('update-accept-form/{id}/{status}/{type_form}','HomeController@updateAcceptForm')->name('update-accept-form');
+Route::get('update-reject-form/{id}/{status}/{type_form}','HomeController@updateRejectForm')->name('update-reject-form');
 Route::post('save-form','HomeController@saveForm')->name('save-form');
 
 // Edit Profile

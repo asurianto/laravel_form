@@ -21,16 +21,20 @@
                     @endif
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <label for="name" class="col-md-4 col-form-label text-md-center">Nama</label>
-                            <label for="name" class="col-md-4 col-form-label text-md-center">Status</label>
+                            <label for="name" class="col-md-3 col-form-label text-md-center">NIP</label>
+                            <label for="name" class="col-md-3 col-form-label text-md-center">Nama</label>
+                            <label for="name" class="col-md-3 col-form-label text-md-center">Total Pinjaman</label>
+                            <label for="name" class="col-md-2 col-form-label text-md-center">Status</label>
                         </div>
                     </div>
                     @isset ($data)
                         @foreach($data as $record)
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="name" class="col-md-4 col-form-label text-md-center">{{$record->name}}</label>                        
-                                <label for="name" class="col-md-4 col-form-label text-md-center">
+                                <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->nip}}</label>  
+                                <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->name}}</label>                        
+                                <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->total_dana}}</label>                        
+                                <label for="name" class="col-md-2 col-form-label text-md-center">
                                     @if($record->active == 0)
                                         <label for="name" class="col-form-label"><a href="{{ route('admin-update-user-status',['id'=>$record->id,'active'=>1 ]) }}">Set Active</a></label>
                                     @elseif($record->active == 1)

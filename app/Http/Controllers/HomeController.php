@@ -21,6 +21,7 @@ class HomeController extends Controller
       $this->notification = $notification;
       parent::__construct();
     }
+    
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['admin', 'user']);
@@ -34,11 +35,12 @@ class HomeController extends Controller
         else{
             $data->dana =  DB::table('form_dana')                            
                             ->join('users','users.id','=','form_dana.user_id')
-                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip')
+                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana as dana')
                             ->where('status',0)->get();
             $data->pengunduran_diri =  DB::table('form_pengunduran_diri')                            
                                     ->join('users','users.id','=','form_pengunduran_diri.user_id')
-                                    ->select('form_pengunduran_diri.id','form_pengunduran_diri.name','users.name as user_name','users.nip')
+                                    ->select('form_pengunduran_diri.id','form_pengunduran_diri.name','users.name as user_name','users.nip','form_pengunduran_diri.status')
+                                    ->where('status',0)
                                     ->get();
         }
         return view('admin.home')->with('data',$data);
@@ -83,34 +85,56 @@ class HomeController extends Controller
         return redirect('/')->with('message', 'Success Insert Data !');    
     }
 
-    public function acceptForm($id,$status){
-        
-        $formDana = DB::table('form_dana')->where('id',$id)->first();
-        $data = (object) array('id','status','receiver');
+    public function acceptForm($id,$status,$type_form){
+        $data = (object) array('id','status','type_forms','receiver','username');
+        if($type_form == 'dana'){
+            $form = DB::table('form_dana')->where('id',$id)->first();
+        }
+        else{        
+            $form = DB::table('form_pengunduran_diri')->where('id',$id)->first();
+            $user = DB::table('users')->where('id',$form->user_id)->first();
+            $data->username = $user->name;
+        }
         $data->id = $id;
         $data->status = $status;
-        $data->receiver = $formDana->user_id;
-
+        $data->type_form = $type_form;
+        $data->receiver = $form->user_id;
+       
         return view('admin.acceptForm')->with('data',$data);
     }
 
-    public function updateAcceptForm($id,$status,Request $request)
+    public function updateAcceptForm($id,$status,$type_form,Request $request)
     {   
         $request->user()->authorizeRoles(['admin', 'user']);
         $user = $request->user();
-        $message = 'Pengajuan peminjaman ada sudah di setujui, dana akan di trf pada tgl: '.$request->input('dateConfirm');
+        if($type_form == 'dana'){
+            $message = 'Pengajuan peminjaman dana sudah di setujui, dana akan di trf pada tgl: '.$request->input('dateConfirm');
+                
+            DB::table('messages')->insert(
+                [   'message' => $message, 
+                    'receiver_id' => $request->input('receiver'),
+                    'created_at'=>Carbon::now()->toDateTimeString(),
+                    'updated_at'=>Carbon::now()->toDateTimeString()
+                ]
+            );
+            $notif = $this->notification->addOrUpdateNotif($request);
+            //Save to db    
+            DB::table('form_dana')->where('id',$id)->update(['status'=>$status]);
+        }
+        else{
+            $message = 'Pengajuan pengunduran diri sudah di setujui';
+            DB::table('messages')->insert(
+                [   'message' => $message, 
+                    'receiver_id' => $request->input('receiver'),
+                    'created_at'=>Carbon::now()->toDateTimeString(),
+                    'updated_at'=>Carbon::now()->toDateTimeString()
+                ]
+            );
+            $notif = $this->notification->addOrUpdateNotif($request);
+            DB::table('form_pengunduran_diri')->where('id',$id)->update(['status'=>$status]);
+            DB::table('users')->where('id',$request->input('receiver'))->update(['active'=>0]);
+        }
         
-        DB::table('messages')->insert(
-            [   'message' => $message, 
-                'receiver_id' => $request->input('receiver'),
-                'created_at'=>Carbon::now()->toDateTimeString(),
-                'updated_at'=>Carbon::now()->toDateTimeString()
-            ]
-        );
-        $notif = $this->notification->addOrUpdateNotif($request);
-        //Save to db    
-        DB::table('form_dana')->where('id',$id)->update(['status'=>$status]);
-
         return redirect('/')->with('message', 'Success Update Data !');
     }
 
@@ -164,6 +188,23 @@ class HomeController extends Controller
         
         return redirect('/profile/'.$id)->with('message', 'Success Update Profile !');
     
+    }
+
+    public function historyForm(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin']);
+        $user = $request->user();
+        $data = (object) array('dana','pengunduran_diri');
+        $data->dana =  DB::table('form_dana')                            
+                            ->join('users','users.id','=','form_dana.user_id')
+                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana as dana','form_dana.status')
+                            ->whereIn('status',[1,2])->get();
+        $data->pengunduran_diri =  DB::table('form_pengunduran_diri')                            
+                            ->join('users','users.id','=','form_pengunduran_diri.user_id')
+                            ->select('form_pengunduran_diri.id','form_pengunduran_diri.name','users.name as user_name','users.nip','form_pengunduran_diri.status')
+                            ->whereIn('status',[1,2])
+                            ->get();
+        return view('admin.history')->with('data',$data);
     }
 
     public function show(){

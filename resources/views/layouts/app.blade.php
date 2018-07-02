@@ -99,6 +99,12 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    
+                                    @if(Auth::user()->hasAnyRole(['admin']))
+                                        <a class="dropdown-item" href="{{ route('history-form') }}">
+                                            History
+                                        </a>    
+                                     @endif   
                                     <a class="dropdown-item" href="{{ route('detail-profile',['id'=> Auth::user()->id]) }}">
                                         Profile
                                     </a>    

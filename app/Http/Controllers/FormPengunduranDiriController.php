@@ -37,6 +37,7 @@ class FormPengunduranDiriController extends Controller
                 'name' => $request->input('name'),
                 'alamat' => $request->input('alamat'),
                 'alasan' => $request->input('alasan'),
+                'status' => 0,
                 'created_at'=>Carbon::now()->toDateTimeString(),
                 'updated_at'=>Carbon::now()->toDateTimeString()
             ]

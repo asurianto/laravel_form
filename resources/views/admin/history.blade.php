@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">List Forms</div>
+                <div class="card-header">List History Forms</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -30,46 +30,36 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="name" class="col-md-2 col-form-label text-md-center">Nama</label>
-                            @if(Auth::user()->hasAnyRole(['admin']))
                             <label for="name" class="col-md-2 col-form-label text-md-center">NIP</label>
                             <label for="name" class="col-md-2 col-form-label text-md-center">Peminjam</label>
                             <label for="name" class="col-md-2 col-form-label text-md-center">Total Dana</label>
-                            @endif
-                            @if(Auth::user()->hasAnyRole(['user']))
                             <label for="name" class="col-md-2 col-form-label text-md-center">Status</label>
-                            @endif
                         </div>
                     </div>
                         @foreach($data->dana as $record)
                         <div class="form-group row">
                             <div class="col-md-12">
                                 @if(Auth::user()->hasAnyRole(['user']))
-                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->name}}</label>                        
-                                <label for="name" class="col-md-2 col-form-label text-md-center">
-                                    @if($record->status == 1)
-                                        Accepted
-                                    @elseif($record->status == 2)
-                                        Rejected
-                                    @else
-                                        Pending
-                                    @endif
-                                </label>
+                                <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->name}}</label>                        
+                                
                                 @endif
                                 @if(Auth::user()->hasAnyRole(['admin']))                            
                                     <label for="name" class="col-md-2 col-form-label text-md-center"><a href="{{ route('detail-form',['id'=>$record->id]) }}">{{$record->name}}</a></label>                        
-                                    <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->nip}}</label>                       
+                                    <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->nip}}</label>                        
                                     <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->user_name}}</label> 
-                                    <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->dana}}</label>                         
-                                    <label for="name" class="col-form-label"><a href="{{ route('accept-form',['id'=>$record->id,'status'=>1, 'type_form'=>'dana' ]) }}">Accept</a></label>
-                                    <label for="name" class="col-form-label text-center">|</label>
-                                    <label for="name" class="col-form-label text-md-right"><a href="{{ route('update-reject-form',['id'=>$record->id,'status'=>2, 'type_form'=>'dana' ]) }}">Reject</a></label>
+                                    <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->dana}}</label>
+                                    <label for="name" class="col-md-2 col-form-label text-md-center">
+                                        @if($record->status == 1)
+                                            Accepted
+                                        @elseif($record->status == 2)
+                                            Rejected
+                                        @endif
+                                    </label>
                                 @endif
                             </div>
                         </div>
                         @endforeach
                     @endif
-
-                    
                     @if (count($data->pengunduran_diri) > 0)
                     <!-- Form pengundaran diri -->
                     <div class="form-group row">
@@ -80,42 +70,37 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="name" class="col-md-2 col-form-label text-md-center">Nama</label>
-                            @if(Auth::user()->hasAnyRole(['admin']))
                             <label for="name" class="col-md-2 col-form-label text-md-center">NIP</label>
                             <label for="name" class="col-md-2 col-form-label text-md-center">Peminjam</label>
-                            @endif
-                            @if(Auth::user()->hasAnyRole(['user']))
                             <label for="name" class="col-md-2 col-form-label text-md-center">Status</label>
-                            @endif
                         </div>
                     </div>
                         @foreach($data->pengunduran_diri as $record)
                         <div class="form-group row">
                             <div class="col-md-12">
-                                @if(Auth::user()->hasAnyRole(['user']))
-                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->name}}</label>                        
+                                <label for="name" class="col-md-2 col-form-label text-md-center"><a href="{{ route('detail-pengunduran-diri-form',['id'=>$record->id]) }}">{{$record->name}}</a></label>                        
+                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->nip}}</label>                        
+                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->user_name}}</label>      
                                 <label for="name" class="col-md-2 col-form-label text-md-center">
                                     @if($record->status == 1)
                                         Accepted
                                     @elseif($record->status == 2)
                                         Rejected
-                                    @else
-                                        Pending
                                     @endif
                                 </label>
-                                @endif
-                                @if(Auth::user()->hasAnyRole(['admin']))                            
-                                <label for="name" class="col-md-2 col-form-label text-md-center"><a href="{{ route('detail-pengunduran-diri-form',['id'=>$record->id]) }}">{{$record->name}}</a></label>                        
-                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->nip}}</label>                        
-                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->user_name}}</label>      
-                                <label for="name" class="col-form-label"><a href="{{ route('accept-form',['id'=>$record->id,'status'=>1, 'type_form'=>'pengunduran' ]) }}">Accept</a></label>
-                                <label for="name" class="col-form-label text-center">|</label>
-                                <label for="name" class="col-form-label text-md-right"><a href="{{ route('update-reject-form',['id'=>$record->id,'status'=>2, 'type_form'=>'pengunduran' ]) }}">Reject</a></label>
-                                @endif
                             </div>
                         </div>
                         @endforeach
-                    @endif
+                    @endif                        
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <form action="{{ route('home')}}">
+                                    <button type="submit" class="btn btn-primary">
+                                       back
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

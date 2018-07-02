@@ -106,9 +106,11 @@
                     
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                <a href="{{ route('home')}}">back</a>
-                            </button>
+                            <form action="{{ route('home')}}">
+                                <button type="submit" class="btn btn-primary">
+                                back
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
