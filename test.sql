@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2018 at 01:29 PM
+-- Generation Time: Jul 21, 2018 at 05:13 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -73,8 +73,8 @@ CREATE TABLE `form_dana` (
 --
 
 INSERT INTO `form_dana` (`id`, `user_id`, `name`, `nip`, `area`, `rekening`, `bank`, `dana`, `terbilang`, `keperluan`, `cicilan`, `tanggal_dana`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Form 1', '123456789', 'XAXAXAXAXA', '5271246578', 'BCA', 10000000, 'Sepuluh Juta Rupiah', 'Dana kebutuhan', 6, '2018-04-11', 1, '2018-04-27 07:15:38', '0000-00-00 00:00:00'),
-(2, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 132456789, 'Uang somtehing', 'keprluan dadakan', 6, '2018-03-20', 0, '2018-07-01 12:04:54', '2018-04-23 18:20:55');
+(1, 1, 'Form 1', '123456789', 'XAXAXAXAXA', '5271246578', 'BCA', 10000000, 'Sepuluh Juta Rupiah', 'Dana kebutuhan', 10, '2018-04-11', 1, '2018-07-21 03:13:30', '0000-00-00 00:00:00'),
+(2, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 132456789, 'Uang somtehing', 'keprluan dadakan', 9, '2018-03-20', 0, '2018-07-21 03:13:33', '2018-04-23 18:20:55');
 
 -- --------------------------------------------------------
 
@@ -170,7 +170,7 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `count`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
+(1, 1, 0, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
 
 -- --------------------------------------------------------
 
@@ -225,7 +225,8 @@ CREATE TABLE `role_user` (
 INSERT INTO `role_user` (`id`, `role_id`, `user_id`) VALUES
 (1, 1, 1),
 (2, 2, 2),
-(3, 1, 4);
+(3, 1, 4),
+(4, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -260,9 +261,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nip`, `area`, `rekening`, `bank`, `campus`, `dop`, `dob`, `address`, `post_code`, `phone_home`, `phone`, `email`, `password`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 0, 'DyS5l8J0nCxpXWuMcGuaoBQqfxUbnjx68M6jevDwZFDkg4HaxZ3zR1VlHayA', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'g7TOsX5kC9JvIdvOBZodEFdHrtlJE40wWHXGmMnBEFpXwCsnKxqartMTDnwi', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, '0D53I6OCsBHYmMO0173VP4aH3sD0iSCeNqXPTqf1zKg51buu7QuLaSaUKFwq', '2018-05-06 00:19:54', '2018-05-06 00:19:54');
+(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'lqmqMRrSoLsgVHBzAzrXAqOonJCnpry3ty5pSI4sQ1oGFgh4Rf47qjjB7sfV', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'fm0LH5W62bKLpx8Z4zNCrPgFqauKK033cYeSB8hlKo04Bh3unh8Wg6IhZege', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, '0D53I6OCsBHYmMO0173VP4aH3sD0iSCeNqXPTqf1zKg51buu7QuLaSaUKFwq', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
+(5, 'Anthony', '1601217146', 'Haji Yahya no 9', 'Anthony Surianto', 'BCA', 'Jakarta', '13340', '1994-08-16', 'Haji Yahya no 9', '13340', '81385508933', '081385508933', 'anthony.surianto@gmail.com', '$2y$10$VT64pUiLdQbAjTbHBblMT.zcpTDEMLfUdB2rB3stYKGXixicc//Cu', 0, NULL, '2018-07-03 20:25:55', '2018-07-03 20:25:55');
 
 --
 -- Indexes for dumped tables
@@ -375,12 +377,12 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `role_user`
 --
 ALTER TABLE `role_user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

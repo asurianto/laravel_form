@@ -154,7 +154,25 @@ class HomeController extends Controller
 
     public function detailProfile(Request $request,$id)
     {
-        $data = DB::table('users')->where('id',$id)->first();
+        $data = DB::table('users')
+                ->leftjoin('form_dana','users.id','=','form_dana.user_id')
+                ->whereRaw('users.id = '.$id.' and form_dana.status = 1')
+                ->select('users.id',DB::raw('min(users.name) as name,
+                        min(users.email) as email,min(users.nip) as nip,
+                        min(users.active) as active,
+                        min(users.address) as address,
+                        min(users.area) as area,
+                        min(users.rekening) as rekening,
+                        min(users.bank) as bank,
+                        min(users.campus) as campus,
+                        min(users.dop) as dop,
+                        min(users.dob) as dob,
+                        min(users.post_code) as post_code,
+                        min(users.phone_home) as phone_home,
+                        min(users.phone) as phone,
+                        SUM(form_dana.dana) as total_dana'))
+                ->groupBy('users.id')
+                ->first();
         return view('admin.detailProfile')->with('data',$data);    
     }
 

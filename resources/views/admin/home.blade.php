@@ -19,6 +19,12 @@
                             {{session('message')}}
                         </div>
                     @endif
+
+                    @if (session('invalid'))
+                        <div class="alert alert-danger">
+                            {{session('invalid')}}
+                        </div>
+                    @endif
                     
                     @if (count($data->dana) > 0)
                     <!-- Form peminjaman -->
@@ -59,7 +65,7 @@
                                     <label for="name" class="col-md-2 col-form-label text-md-center"><a href="{{ route('detail-form',['id'=>$record->id]) }}">{{$record->name}}</a></label>                        
                                     <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->nip}}</label>                       
                                     <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->user_name}}</label> 
-                                    <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->dana}}</label>                         
+                                    <label for="name" class="col-md-2 col-form-label text-md-center">Rp.{{ number_format($record->dana,2,',','.') }}</label>                         
                                     <label for="name" class="col-form-label"><a href="{{ route('accept-form',['id'=>$record->id,'status'=>1, 'type_form'=>'dana' ]) }}">Accept</a></label>
                                     <label for="name" class="col-form-label text-center">|</label>
                                     <label for="name" class="col-form-label text-md-right"><a href="{{ route('update-reject-form',['id'=>$record->id,'status'=>2, 'type_form'=>'dana' ]) }}">Reject</a></label>

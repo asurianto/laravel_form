@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,6 +27,17 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->call(function () {
+            $data = DB::table('form_dana')
+                ->whereRaw('status.role_id = 1 and form_dana.status = 1')
+                ->get();
+            // echo $data[0]->id;
+            foreach($data as $value){                
+                if($value->cicilan > 0 ){
+                    DB::table('form_dana')->where('id',$value->id)->update(['cicilan'=>$value->cicilan - 1]);
+                }
+            }
+        })->everyMinute();
     }
 
     /**

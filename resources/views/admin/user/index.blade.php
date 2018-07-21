@@ -33,7 +33,7 @@
                             <div class="col-md-12">
                                 <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->nip}}</label>  
                                 <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->name}}</label>                        
-                                <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->total_dana}}</label>                        
+                                <label for="name" class="col-md-3 col-form-label text-md-center">Rp. {{ number_format($record->total_dana,2,',','.') }}</label>                        
                                 <label for="name" class="col-md-2 col-form-label text-md-center">
                                     @if($record->active == 0)
                                         <label for="name" class="col-form-label"><a href="{{ route('admin-update-user-status',['id'=>$record->id,'active'=>1 ]) }}">Set Active</a></label>

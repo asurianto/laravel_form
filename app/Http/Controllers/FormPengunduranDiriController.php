@@ -20,8 +20,20 @@ class FormPengunduranDiriController extends Controller
     }
 
     public function addForm(Request $request)
-    {
+    {   
         $request->user()->authorizeRoles(['admin', 'user']);
+        $user = $request->user();
+        $data =  DB::table('users')
+                ->leftjoin('form_dana','users.id','=','form_dana.user_id')
+                ->whereRaw('form_dana.status = 1 and users.id ='.$user->id)
+                ->select('users.id',DB::raw('SUM(form_dana.dana) as total_dana'))
+                ->groupBy('users.id')
+                ->first();
+
+        if ($data->total_dana > 0 ){
+            return redirect('/')->with('invalid', 'Peminjaman dana belum lunas!');
+        } 
+        
         return view('pengunduranDiri.addForm');
     }
 
