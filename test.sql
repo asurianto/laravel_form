@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2018 at 05:13 AM
+-- Generation Time: Aug 02, 2018 at 04:14 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -74,7 +74,7 @@ CREATE TABLE `form_dana` (
 
 INSERT INTO `form_dana` (`id`, `user_id`, `name`, `nip`, `area`, `rekening`, `bank`, `dana`, `terbilang`, `keperluan`, `cicilan`, `tanggal_dana`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Form 1', '123456789', 'XAXAXAXAXA', '5271246578', 'BCA', 10000000, 'Sepuluh Juta Rupiah', 'Dana kebutuhan', 10, '2018-04-11', 1, '2018-07-21 03:13:30', '0000-00-00 00:00:00'),
-(2, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 132456789, 'Uang somtehing', 'keprluan dadakan', 9, '2018-03-20', 0, '2018-07-21 03:13:33', '2018-04-23 18:20:55');
+(2, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 10000000, 'Uang somtehing', 'keprluan dadakan', 9, '2018-03-20', 0, '2018-08-02 13:59:09', '2018-04-23 18:20:55');
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,8 @@ INSERT INTO `messages` (`id`, `receiver_id`, `message`, `created_at`, `updated_a
 (12, 1, 'Pengajuan peminjaman ada sudah di setujui, dana akan di trf pada tgl: 2018-08-16', '2018-06-16 16:48:02', '2018-06-16 16:48:02'),
 (13, 1, 'Pengajuan pengunduran diri sudah di setujui', '2018-07-02 05:48:08', '2018-07-02 05:48:08'),
 (14, 1, 'Pengajuan pengunduran diri sudah di setujui', '2018-07-02 06:01:30', '2018-07-02 06:01:30'),
-(15, 1, 'Pengajuan pengunduran diri sudah di setujui', '2018-07-02 06:06:09', '2018-07-02 06:06:09');
+(15, 1, 'Pengajuan pengunduran diri sudah di setujui', '2018-07-02 06:06:09', '2018-07-02 06:06:09'),
+(16, 1, 'Pengajuan peminjaman dana sudah di setujui, dana akan di trf pada tgl: 1994-03-20', '2018-08-02 13:58:45', '2018-08-02 13:58:45');
 
 -- --------------------------------------------------------
 
@@ -170,7 +171,7 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `count`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
+(1, 1, 1, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
 
 -- --------------------------------------------------------
 
@@ -231,6 +232,29 @@ INSERT INTO `role_user` (`id`, `role_id`, `user_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `type_peminjaman`
+--
+
+CREATE TABLE `type_peminjaman` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `limit_peminjaman` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `type_peminjaman`
+--
+
+INSERT INTO `type_peminjaman` (`id`, `name`, `limit_peminjaman`, `created_at`, `updated_at`) VALUES
+(1, 'regular', 5000000, '2018-07-28 08:19:02', '2018-07-28 08:19:02'),
+(2, 'barang', 3000000, '2018-07-28 08:19:02', '2018-07-28 08:19:02'),
+(3, 'sembako', 5000000, '2018-07-28 08:19:12', '2018-07-28 08:19:12');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -261,9 +285,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nip`, `area`, `rekening`, `bank`, `campus`, `dop`, `dob`, `address`, `post_code`, `phone_home`, `phone`, `email`, `password`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'lqmqMRrSoLsgVHBzAzrXAqOonJCnpry3ty5pSI4sQ1oGFgh4Rf47qjjB7sfV', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'fm0LH5W62bKLpx8Z4zNCrPgFqauKK033cYeSB8hlKo04Bh3unh8Wg6IhZege', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, '0D53I6OCsBHYmMO0173VP4aH3sD0iSCeNqXPTqf1zKg51buu7QuLaSaUKFwq', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
+(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'NDfFAdIGiA0s04ndXMvcxKIz0yjJelutkoDx71KpB2LAIU8rsjULhMyHhi1l', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'OFtw5d3uOYa13aPIBr7VlbZZ2DzPrBMkmtBC9f5C8INzcC3Y4VcRAEGQ2z8k', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, 'M0ep9jqWUA5WhSYOPq3FdkxEk0wGLhQb5W1KYeYPbGUWx78HjugabYC67MEZ', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
 (5, 'Anthony', '1601217146', 'Haji Yahya no 9', 'Anthony Surianto', 'BCA', 'Jakarta', '13340', '1994-08-16', 'Haji Yahya no 9', '13340', '81385508933', '081385508933', 'anthony.surianto@gmail.com', '$2y$10$VT64pUiLdQbAjTbHBblMT.zcpTDEMLfUdB2rB3stYKGXixicc//Cu', 0, NULL, '2018-07-03 20:25:55', '2018-07-03 20:25:55');
 
 --
@@ -328,6 +352,12 @@ ALTER TABLE `role_user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `type_peminjaman`
+--
+ALTER TABLE `type_peminjaman`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -357,7 +387,7 @@ ALTER TABLE `form_pengunduran_diri`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -378,6 +408,11 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `role_user`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `type_peminjaman`
+--
+ALTER TABLE `type_peminjaman`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --

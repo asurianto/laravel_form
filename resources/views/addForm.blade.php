@@ -13,6 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
+                    @if (session('invalid'))
+                        <div class="alert alert-danger">
+                            {{session('invalid')}}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('save-form') }}">
                         @csrf
 
@@ -132,9 +138,25 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="tanggal_dana" class="col-md-4 col-form-label text-md-right">Tanggal Dana</label>
+                            <label for="tanggal_dana" class="col-md-4 col-form-label text-md-right">Tanggal Dana di butuhkan</label>
                             <div class="col-md-6">
                                 <input id="tanggal_dana" type="date" class="form-control{{ $errors->has('tanggal_dana') ? ' is-invalid' : '' }}" name="tanggal_dana" value="{{ old('tanggal_dana') }}" required autofocus>
+                                @if ($errors->has('tanggal_dana'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('tanggal_dana') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="limit_peminjaman" class="col-md-4 col-form-label text-md-right">Jenis Peminjaman</label>
+                            <div class="col-md-6">
+                                <select id="limit_peminjaman"  class="form-control{{ $errors->has('limit_peminjaman') ? ' is-invalid' : '' }}" name="limit_peminjaman">
+                                    @foreach($data as $key => $value)
+                                        <option value="{{$value->limit_peminjaman}}">{{$value->name}}</option>
+                                    @endforeach
+                                </select>
                                 @if ($errors->has('tanggal_dana'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('tanggal_dana') }}</strong>

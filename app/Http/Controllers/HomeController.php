@@ -35,7 +35,7 @@ class HomeController extends Controller
         else{
             $data->dana =  DB::table('form_dana')                            
                             ->join('users','users.id','=','form_dana.user_id')
-                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana as dana')
+                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana as dana','form_dana.tanggal_dana')
                             ->where('status',0)->get();
             $data->pengunduran_diri =  DB::table('form_pengunduran_diri')                            
                                     ->join('users','users.id','=','form_pengunduran_diri.user_id')
@@ -49,7 +49,8 @@ class HomeController extends Controller
     public function addForm(Request $request)
     {
         $request->user()->authorizeRoles(['admin', 'user']);
-        return view('addForm');
+        $data = DB::table('type_peminjaman')->get();
+        return view('addForm')->with('data',$data);
     }
 
     public function detailForm(Request $request,$id)
@@ -62,7 +63,9 @@ class HomeController extends Controller
     {
         $request->user()->authorizeRoles(['admin', 'user']);
         $user = $request->user();
-
+        if($request->input('dana') > $request->input('limit_peminjaman')){
+            return back()->with('invalid','Limit peminjaman sebesar:Rp.'.number_format($request->input('limit_peminjaman'),2,',','.'));
+        }
         //Save to db    
         DB::table('form_dana')->insert(
             [   'user_id' => $user->id, 
@@ -86,9 +89,10 @@ class HomeController extends Controller
     }
 
     public function acceptForm($id,$status,$type_form){
-        $data = (object) array('id','status','type_forms','receiver','username');
+        $data = (object) array('id','status','type_forms','receiver','username','total_dana');
         if($type_form == 'dana'){
             $form = DB::table('form_dana')->where('id',$id)->first();
+            $data->total_dana = $form->dana;
         }
         else{        
             $form = DB::table('form_pengunduran_diri')->where('id',$id)->first();
@@ -119,7 +123,7 @@ class HomeController extends Controller
             );
             $notif = $this->notification->addOrUpdateNotif($request);
             //Save to db    
-            DB::table('form_dana')->where('id',$id)->update(['status'=>$status]);
+            DB::table('form_dana')->where('id',$id)->update(['status'=>$status,'dana'=>$request->input('dana_transfer')]);
         }
         else{
             $message = 'Pengajuan pengunduran diri sudah di setujui';
@@ -154,26 +158,49 @@ class HomeController extends Controller
 
     public function detailProfile(Request $request,$id)
     {
-        $data = DB::table('users')
-                ->leftjoin('form_dana','users.id','=','form_dana.user_id')
-                ->whereRaw('users.id = '.$id.' and form_dana.status = 1')
-                ->select('users.id',DB::raw('min(users.name) as name,
-                        min(users.email) as email,min(users.nip) as nip,
-                        min(users.active) as active,
-                        min(users.address) as address,
-                        min(users.area) as area,
-                        min(users.rekening) as rekening,
-                        min(users.bank) as bank,
-                        min(users.campus) as campus,
-                        min(users.dop) as dop,
-                        min(users.dob) as dob,
-                        min(users.post_code) as post_code,
-                        min(users.phone_home) as phone_home,
-                        min(users.phone) as phone,
-                        SUM(form_dana.dana) as total_dana'))
-                ->groupBy('users.id')
-                ->first();
-        return view('admin.detailProfile')->with('data',$data);    
+        // $data = DB::table('users')
+        //         ->leftjoin('form_dana','users.id','=','form_dana.user_id')
+        //         ->whereRaw('users.id = '.$id.' and form_dana.status = 1')
+        //         ->select('users.id',DB::raw('min(users.name) as name,
+        //                 min(users.email) as email,min(users.nip) as nip,
+        //                 min(users.active) as active,
+        //                 min(users.address) as address,
+        //                 min(users.area) as area,
+        //                 min(users.rekening) as rekening,
+        //                 min(users.bank) as bank,
+        //                 min(users.campus) as campus,
+        //                 min(users.dop) as dop,
+        //                 min(users.dob) as dob,
+        //                 min(users.post_code) as post_code,
+        //                 min(users.phone_home) as phone_home,
+        //                 min(users.phone) as phone,
+        //                 SUM(form_dana.dana) as total_dana'))
+        //         ->groupBy('users.id')
+        //         ->first();
+        $data = DB::select('
+                        select 
+                            a.id,
+                            min(a.name) as name,
+                            min(a.email) as email,
+                            min(a.nip) as nip,
+                            min(a.active) as active,
+                            min(a.address) as address,
+                            min(a.area) as area,
+                            min(a.rekening) as rekening,
+                            min(a.bank) as bank,
+                            min(a.campus) as campus,
+                            min(a.dop) as dop,
+                            min(a.dob) as dob,
+                            min(a.post_code) as post_code,
+                            min(a.phone_home) as phone_home,
+                            min(a.phone) as phone,
+                            sum(b.dana) as total_dana
+                        from users a
+                        left join (select * from form_dana where status = 1) as b on a.id = b.user_id
+                        where a.id = :id
+                        group by a.id
+                ',['id'=>$id]);
+        return view('admin.detailProfile')->with('data',$data[0]);    
     }
 
     public function editProfile(Request $request,$id)

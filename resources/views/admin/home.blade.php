@@ -40,6 +40,7 @@
                             <label for="name" class="col-md-2 col-form-label text-md-center">NIP</label>
                             <label for="name" class="col-md-2 col-form-label text-md-center">Peminjam</label>
                             <label for="name" class="col-md-2 col-form-label text-md-center">Total Dana</label>
+                            <label for="name" class="col-md-2 col-form-label text-md-center">Tanggal Dana</label>
                             @endif
                             @if(Auth::user()->hasAnyRole(['user']))
                             <label for="name" class="col-md-2 col-form-label text-md-center">Status</label>
@@ -65,7 +66,8 @@
                                     <label for="name" class="col-md-2 col-form-label text-md-center"><a href="{{ route('detail-form',['id'=>$record->id]) }}">{{$record->name}}</a></label>                        
                                     <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->nip}}</label>                       
                                     <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->user_name}}</label> 
-                                    <label for="name" class="col-md-2 col-form-label text-md-center">Rp.{{ number_format($record->dana,2,',','.') }}</label>                         
+                                    <label for="name" class="col-md-2 col-form-label text-md-center">Rp.{{ number_format($record->dana,2,',','.') }}</label>                  
+                                    <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->tanggal_dana}}</label>                        
                                     <label for="name" class="col-form-label"><a href="{{ route('accept-form',['id'=>$record->id,'status'=>1, 'type_form'=>'dana' ]) }}">Accept</a></label>
                                     <label for="name" class="col-form-label text-center">|</label>
                                     <label for="name" class="col-form-label text-md-right"><a href="{{ route('update-reject-form',['id'=>$record->id,'status'=>2, 'type_form'=>'dana' ]) }}">Reject</a></label>
