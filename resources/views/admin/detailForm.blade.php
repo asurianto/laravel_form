@@ -65,7 +65,7 @@
                         <label for="dana" class="col-md-4 col-form-label text-md-right">Dana</label>
                         <div class="col-md-6">
                             <label class="col-form-label">
-                                {{ $data->dana }}
+                                {{ $data->dana_potongan }}
                             </label>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         <label for="cicilan" class="col-md-4 col-form-label text-md-right">Cicilan</label>
                         <div class="col-md-6">
                             <label class="col-form-label">
-                                {{ $data->cicilan }}
+                                {{ $data->cicilan_potongan }}
                             </label>
                         </div>
                     </div>

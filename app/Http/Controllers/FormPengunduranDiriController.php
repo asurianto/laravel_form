@@ -23,14 +23,24 @@ class FormPengunduranDiriController extends Controller
     {   
         $request->user()->authorizeRoles(['admin', 'user']);
         $user = $request->user();
-        $data =  DB::table('users')
-                ->leftjoin('form_dana','users.id','=','form_dana.user_id')
-                ->whereRaw('form_dana.status = 1 and users.id ='.$user->id)
-                ->select('users.id',DB::raw('SUM(form_dana.dana) as total_dana'))
-                ->groupBy('users.id')
-                ->first();
+        // $data =  DB::table('users')
+        //         ->leftjoin('form_dana','users.id','=','form_dana.user_id')
+        //         ->whereRaw('form_dana.status = 1 and users.id ='.$user->id)
+        //         ->select('users.id',DB::raw('SUM(form_dana.dana) as total_dana'))
+        //         ->groupBy('users.id')
+        //         ->first();
 
-        if ($data->total_dana > 0 ){
+        $data = DB::select('
+                select 
+                    a.id,
+                    sum(b.cicilan_potongan) as total_cicilan
+                from users a
+                left join (select * from form_dana where status = 1) as b on a.id = b.user_id
+                where a.id = :id
+                group by a.id
+        ',['id'=>$user->id]);
+
+        if ($data[0]->total_cicilan > 0 ){
             return redirect('/')->with('invalid', 'Peminjaman dana belum lunas!');
         } 
         

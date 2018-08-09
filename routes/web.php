@@ -22,6 +22,7 @@ Route::get('history-form','HomeController@historyForm')->name('history-form');
 Route::get('accept-form/{id}/{status}/{type_form}','HomeController@acceptForm')->name('accept-form');
 Route::post('update-accept-form/{id}/{status}/{type_form}','HomeController@updateAcceptForm')->name('update-accept-form');
 Route::get('update-reject-form/{id}/{status}/{type_form}','HomeController@updateRejectForm')->name('update-reject-form');
+Route::get('report-peminjaman-form','HomeController@excelReportPeminjamanForm')->name('report-peminjaman-form');
 Route::post('save-form','HomeController@saveForm')->name('save-form');
 
 // Edit Profile

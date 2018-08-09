@@ -29,12 +29,18 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->call(function () {
             $data = DB::table('form_dana')
-                ->whereRaw('status.role_id = 1 and form_dana.status = 1')
+                ->whereRaw('form_dana.status = 1')
                 ->get();
             // echo $data[0]->id;
             foreach($data as $value){                
-                if($value->cicilan > 0 ){
-                    DB::table('form_dana')->where('id',$value->id)->update(['cicilan'=>$value->cicilan - 1]);
+                if($value->cicilan_potongan > 0 ){
+                    $dana_potongan = $value->dana_potongan - ($value->dana_potongan /  $value->cicilan_potongan);
+                    if($value->cicilan_potongan == 1) $dana_potongan = 0;
+                    
+                    DB::table('form_dana')->where('id',$value->id)->update([
+                        'cicilan_potongan'=>$value->cicilan_potongan - 1,
+                        'dana_potongan'=> $dana_potongan
+                    ]);
                 }
             }
         })->everyMinute();

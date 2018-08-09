@@ -105,7 +105,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="total_dana" class="col-md-4 col-form-label text-md-right">Total Dana</label>
+                        <label for="total_dana" class="col-md-4 col-form-label text-md-right">Total Pinjaman</label>
                         <div class="col-md-6">
                             <label class="col-form-label">
                                Rp. {{ number_format($data->total_dana,2,',','.') }}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2018 at 04:14 PM
+-- Generation Time: Aug 09, 2018 at 03:02 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -53,15 +53,18 @@ INSERT INTO `banner` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `form_dana` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `type_peminjaman_id` int(11) NOT NULL,
   `name` varchar(65) NOT NULL,
   `nip` varchar(20) NOT NULL,
   `area` varchar(65) NOT NULL,
   `rekening` varchar(20) NOT NULL,
   `bank` varchar(65) NOT NULL,
   `dana` int(11) NOT NULL,
+  `dana_potongan` int(11) NOT NULL,
   `terbilang` varchar(100) NOT NULL,
   `keperluan` varchar(100) NOT NULL,
   `cicilan` int(11) NOT NULL,
+  `cicilan_potongan` int(11) NOT NULL,
   `tanggal_dana` date DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -72,9 +75,10 @@ CREATE TABLE `form_dana` (
 -- Dumping data for table `form_dana`
 --
 
-INSERT INTO `form_dana` (`id`, `user_id`, `name`, `nip`, `area`, `rekening`, `bank`, `dana`, `terbilang`, `keperluan`, `cicilan`, `tanggal_dana`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Form 1', '123456789', 'XAXAXAXAXA', '5271246578', 'BCA', 10000000, 'Sepuluh Juta Rupiah', 'Dana kebutuhan', 10, '2018-04-11', 1, '2018-07-21 03:13:30', '0000-00-00 00:00:00'),
-(2, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 10000000, 'Uang somtehing', 'keprluan dadakan', 9, '2018-03-20', 0, '2018-08-02 13:59:09', '2018-04-23 18:20:55');
+INSERT INTO `form_dana` (`id`, `user_id`, `type_peminjaman_id`, `name`, `nip`, `area`, `rekening`, `bank`, `dana`, `dana_potongan`, `terbilang`, `keperluan`, `cicilan`, `cicilan_potongan`, `tanggal_dana`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Form 1', '123456789', 'XAXAXAXAXA', '5271246578', 'BCA', 10000000, 0, 'Sepuluh Juta Rupiah', 'Dana kebutuhan', 12, 0, '2018-04-11', 1, '2018-08-09 07:57:00', '0000-00-00 00:00:00'),
+(2, 1, 1, 'Form 121212', '132456789', 'qheuuiqheuiqhewui', '132456789', 'BCA', 10000000, 10000000, 'Uang somtehing', 'keprluan dadakan', 9, 9, '2018-03-20', 0, '2018-08-09 07:57:02', '2018-04-23 18:20:55'),
+(4, 1, 2, 'ASDJKHDKJ', '165465464', 'wqehiuqhewuiqweu', '45645645646', 'qwewqeq', 120000, 120000, 'ASDJIUADHIDHA', 'qweqnuwiehqbiewbiu', 12, 12, '2018-09-30', 1, '2018-08-09 08:57:12', '2018-08-09 01:41:16');
 
 -- --------------------------------------------------------
 
@@ -285,9 +289,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nip`, `area`, `rekening`, `bank`, `campus`, `dop`, `dob`, `address`, `post_code`, `phone_home`, `phone`, `email`, `password`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'NDfFAdIGiA0s04ndXMvcxKIz0yjJelutkoDx71KpB2LAIU8rsjULhMyHhi1l', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'OFtw5d3uOYa13aPIBr7VlbZZ2DzPrBMkmtBC9f5C8INzcC3Y4VcRAEGQ2z8k', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, 'M0ep9jqWUA5WhSYOPq3FdkxEk0wGLhQb5W1KYeYPbGUWx78HjugabYC67MEZ', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
+(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'Bq3q9Q0Lq5pVJLKIC8koFQFRQAl4yYXj7MytQUjbI2crE9ryLmaH5Nl7sjby', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'AiNE6ezjPPHKaChaLhb4uJukpmdNj5JX0Pk7H4pjFg7E0eoij7To6gGVZMh5', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, '8Ns1UKZe6dSS6EukcQA3uhdWd6YPmWD80TQSAqbfKn8M4CaMNAVxle1iYJs2', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
 (5, 'Anthony', '1601217146', 'Haji Yahya no 9', 'Anthony Surianto', 'BCA', 'Jakarta', '13340', '1994-08-16', 'Haji Yahya no 9', '13340', '81385508933', '081385508933', 'anthony.surianto@gmail.com', '$2y$10$VT64pUiLdQbAjTbHBblMT.zcpTDEMLfUdB2rB3stYKGXixicc//Cu', 0, NULL, '2018-07-03 20:25:55', '2018-07-03 20:25:55');
 
 --
@@ -377,7 +381,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `form_dana`
 --
 ALTER TABLE `form_dana`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `form_pengunduran_diri`
 --

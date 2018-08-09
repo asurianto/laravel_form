@@ -5,7 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">List Forms</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-10">
+                            List Forms
+                        </div>
+                        @if(Auth::user()->hasAnyRole(['admin']))
+                        <div class="col-2">
+                            <a class="float-right"  href="{{ route('report-peminjaman-form') }}">Download</a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -43,6 +54,7 @@
                             <label for="name" class="col-md-2 col-form-label text-md-center">Tanggal Dana</label>
                             @endif
                             @if(Auth::user()->hasAnyRole(['user']))
+                            <label for="name" class="col-md-2 col-form-label text-md-center">Jumlah Dana</label>
                             <label for="name" class="col-md-2 col-form-label text-md-center">Status</label>
                             @endif
                         </div>
@@ -51,7 +63,8 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 @if(Auth::user()->hasAnyRole(['user']))
-                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->name}}</label>                        
+                                <label for="name" class="col-md-2 col-form-label text-md-center">{{$record->name}}</label>
+                                <label for="name" class="col-md-2 col-form-label text-md-center">Rp.{{ number_format($record->dana,2,',','.') }}</label>                        
                                 <label for="name" class="col-md-2 col-form-label text-md-center">
                                     @if($record->status == 1)
                                         Accepted

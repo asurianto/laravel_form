@@ -10,15 +10,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
 
 class HomeController extends Controller
 {
     protected $notification;
+    private $excel;
 
-    public function __construct(NotificationController $notification)
+    public function __construct(NotificationController $notification,Excel $excel)
     {
       $this->middleware('auth');
       $this->notification = $notification;
+      $this->excel = $excel;
       parent::__construct();
     }
     
@@ -29,13 +33,15 @@ class HomeController extends Controller
         $data = (object) array('dana','pengunduran_diri');
         if($request->user()->hasAnyRole(['user'])){
             $data->dana = DB::table('form_dana')
-                            ->where('form_dana.user_id',$user->id)->get();
+                            ->where('form_dana.user_id',$user->id)
+                            ->select('form_dana.id','form_dana.name','form_dana.dana_potongan as dana','form_dana.tanggal_dana','form_dana.status')
+                            ->get();
             $data->pengunduran_diri = DB::table('form_pengunduran_diri')->where('user_id',$user->id)->get();
         }
         else{
             $data->dana =  DB::table('form_dana')                            
                             ->join('users','users.id','=','form_dana.user_id')
-                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana as dana','form_dana.tanggal_dana')
+                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana_potongan as dana','form_dana.tanggal_dana')
                             ->where('status',0)->get();
             $data->pengunduran_diri =  DB::table('form_pengunduran_diri')                            
                                     ->join('users','users.id','=','form_pengunduran_diri.user_id')
@@ -63,21 +69,27 @@ class HomeController extends Controller
     {
         $request->user()->authorizeRoles(['admin', 'user']);
         $user = $request->user();
-        if($request->input('dana') > $request->input('limit_peminjaman')){
-            return back()->with('invalid','Limit peminjaman sebesar:Rp.'.number_format($request->input('limit_peminjaman'),2,',','.'));
+        $type_peminjaman = DB::table('type_peminjaman')->where('id',$request->input('limit_peminjaman'))->first();
+        $limit_peminjaman = $type_peminjaman->limit_peminjaman;
+
+        if($request->input('dana') > $limit_peminjaman){
+            return back()->with('invalid','Limit peminjaman sebesar:Rp.'.number_format($limit_peminjaman,2,',','.'));
         }
         //Save to db    
         DB::table('form_dana')->insert(
-            [   'user_id' => $user->id, 
+            [   'user_id' => $user->id,
+                'type_peminjaman_id' =>  $request->input('limit_peminjaman'),
                 'name' => $request->input('name'),
                 'nip' => $request->input('nip'),
                 'area' => $request->input('area'),
                 'rekening' => $request->input('rekening'),
                 'bank' => $request->input('bank'),
                 'dana' => $request->input('dana'),
+                'dana_potongan' => $request->input('dana'),
                 'terbilang' => $request->input('terbilang'),
                 'keperluan' => $request->input('keperluan'),
                 'cicilan' => $request->input('cicilan'),
+                'cicilan_potongan' => $request->input('cicilan'),
                 'tanggal_dana' => date('Y-m-d H:i:s',strtotime($request->input('tanggal_dana'))),
                 'status' => 0,
                 'created_at'=>Carbon::now()->toDateTimeString(),
@@ -123,7 +135,7 @@ class HomeController extends Controller
             );
             $notif = $this->notification->addOrUpdateNotif($request);
             //Save to db    
-            DB::table('form_dana')->where('id',$id)->update(['status'=>$status,'dana'=>$request->input('dana_transfer')]);
+            DB::table('form_dana')->where('id',$id)->update(['status'=>$status,'dana'=>$request->input('dana_transfer'),'dana_potongan'=>$request->input('dana_transfer')]);
         }
         else{
             $message = 'Pengajuan pengunduran diri sudah di setujui';
@@ -156,27 +168,12 @@ class HomeController extends Controller
     
     }
 
+    public function excelReportPeminjamanForm(Request $request){
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
     public function detailProfile(Request $request,$id)
     {
-        // $data = DB::table('users')
-        //         ->leftjoin('form_dana','users.id','=','form_dana.user_id')
-        //         ->whereRaw('users.id = '.$id.' and form_dana.status = 1')
-        //         ->select('users.id',DB::raw('min(users.name) as name,
-        //                 min(users.email) as email,min(users.nip) as nip,
-        //                 min(users.active) as active,
-        //                 min(users.address) as address,
-        //                 min(users.area) as area,
-        //                 min(users.rekening) as rekening,
-        //                 min(users.bank) as bank,
-        //                 min(users.campus) as campus,
-        //                 min(users.dop) as dop,
-        //                 min(users.dob) as dob,
-        //                 min(users.post_code) as post_code,
-        //                 min(users.phone_home) as phone_home,
-        //                 min(users.phone) as phone,
-        //                 SUM(form_dana.dana) as total_dana'))
-        //         ->groupBy('users.id')
-        //         ->first();
         $data = DB::select('
                         select 
                             a.id,
@@ -194,7 +191,7 @@ class HomeController extends Controller
                             min(a.post_code) as post_code,
                             min(a.phone_home) as phone_home,
                             min(a.phone) as phone,
-                            sum(b.dana) as total_dana
+                            sum(b.dana_potongan) as total_dana
                         from users a
                         left join (select * from form_dana where status = 1) as b on a.id = b.user_id
                         where a.id = :id
@@ -242,7 +239,7 @@ class HomeController extends Controller
         $data = (object) array('dana','pengunduran_diri');
         $data->dana =  DB::table('form_dana')                            
                             ->join('users','users.id','=','form_dana.user_id')
-                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana as dana','form_dana.status')
+                            ->select('form_dana.id','form_dana.name','users.name as user_name','users.nip','form_dana.dana_potongan as dana','form_dana.status')
                             ->whereIn('status',[1,2])->get();
         $data->pengunduran_diri =  DB::table('form_pengunduran_diri')                            
                             ->join('users','users.id','=','form_pengunduran_diri.user_id')

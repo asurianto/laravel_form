@@ -154,7 +154,7 @@
                             <div class="col-md-6">
                                 <select id="limit_peminjaman"  class="form-control{{ $errors->has('limit_peminjaman') ? ' is-invalid' : '' }}" name="limit_peminjaman">
                                     @foreach($data as $key => $value)
-                                        <option value="{{$value->limit_peminjaman}}">{{$value->name}}</option>
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('tanggal_dana'))
