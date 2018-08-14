@@ -101,10 +101,11 @@ class HomeController extends Controller
     }
 
     public function acceptForm($id,$status,$type_form){
-        $data = (object) array('id','status','type_forms','receiver','username','total_dana');
+        $data = (object) array('id','status','type_forms','receiver','username','total_dana','tanggal_dana');
         if($type_form == 'dana'){
             $form = DB::table('form_dana')->where('id',$id)->first();
             $data->total_dana = $form->dana;
+            $data->tanggal_dana = $form->tanggal_dana;
         }
         else{        
             $form = DB::table('form_pengunduran_diri')->where('id',$id)->first();

@@ -10,9 +10,11 @@
                         <div class="col-10">
                                 List Messages
                         </div>
-                        <div class="col-2">
-                            <a class="float-right"  href="{{ route('add-message') }}">Create Message</a>
-                        </div>
+                        @if(Auth::user()->hasAnyRole(['admin']))
+                            <div class="col-2">
+                                <a class="float-right"  href="{{ route('add-message') }}">Create Message</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
 

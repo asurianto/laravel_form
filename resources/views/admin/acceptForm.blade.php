@@ -21,6 +21,14 @@
                         @csrf   
                         <input id="receiver" type="text" class="col-md-8 form-control" name="receiver" value="{{ $data->receiver }}" hidden>                                                     
                         <div class="form-group row">
+                            <label for="tanggal_dana" class="col-md-4 col-form-label text-md-right">Tanggal dana</label>
+                            <div class="col-md-6">
+                               <label class="col-form-label">
+                                    {{$data->tanggal_dana}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="total_dana" class="col-md-4 col-form-label text-md-right">Total dana</label>
                             <div class="col-md-6">
                                <label class="col-form-label">

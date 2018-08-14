@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2018 at 03:02 PM
+-- Generation Time: Aug 14, 2018 at 02:59 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -93,8 +93,8 @@ CREATE TABLE `form_pengunduran_diri` (
   `alamat` varchar(99) NOT NULL,
   `alasan` varchar(99) NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -175,7 +175,7 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `count`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
+(1, 1, 0, '2018-05-09 00:00:00', '2018-05-09 09:09:10');
 
 -- --------------------------------------------------------
 
@@ -236,6 +236,28 @@ INSERT INTO `role_user` (`id`, `role_id`, `user_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `simpanan`
+--
+
+CREATE TABLE `simpanan` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `dana` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `simpanan`
+--
+
+INSERT INTO `simpanan` (`id`, `user_id`, `dana`, `created_at`, `updated_at`) VALUES
+(1, 1, 300000, '2018-08-14 00:55:23', '2018-08-14 05:58:13'),
+(2, 4, 100000, '2018-08-14 04:03:27', '2018-08-14 05:58:51');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `type_peminjaman`
 --
 
@@ -289,8 +311,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nip`, `area`, `rekening`, `bank`, `campus`, `dop`, `dob`, `address`, `post_code`, `phone_home`, `phone`, `email`, `password`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'Bq3q9Q0Lq5pVJLKIC8koFQFRQAl4yYXj7MytQUjbI2crE9ryLmaH5Nl7sjby', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'AiNE6ezjPPHKaChaLhb4uJukpmdNj5JX0Pk7H4pjFg7E0eoij7To6gGVZMh5', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'e7d3IQS9gyQKX6wtJYkunTcnWansJitElfTEkMOctcCG1ZglaPXAyiTCfTPs', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'v82opynDxxAy2HyjNzaEHYTTJ097TU8jyK44MwZAFHLIYmW8p6sFUbfWez6T', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
 (4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, '8Ns1UKZe6dSS6EukcQA3uhdWd6YPmWD80TQSAqbfKn8M4CaMNAVxle1iYJs2', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
 (5, 'Anthony', '1601217146', 'Haji Yahya no 9', 'Anthony Surianto', 'BCA', 'Jakarta', '13340', '1994-08-16', 'Haji Yahya no 9', '13340', '81385508933', '081385508933', 'anthony.surianto@gmail.com', '$2y$10$VT64pUiLdQbAjTbHBblMT.zcpTDEMLfUdB2rB3stYKGXixicc//Cu', 0, NULL, '2018-07-03 20:25:55', '2018-07-03 20:25:55');
 
@@ -356,6 +378,12 @@ ALTER TABLE `role_user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `simpanan`
+--
+ALTER TABLE `simpanan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `type_peminjaman`
 --
 ALTER TABLE `type_peminjaman`
@@ -412,6 +440,11 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `role_user`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `simpanan`
+--
+ALTER TABLE `simpanan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `type_peminjaman`
 --

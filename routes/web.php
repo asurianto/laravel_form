@@ -35,6 +35,13 @@ Route::get('add-pengunduran-diri-form','FormPengunduranDiriController@addForm')-
 Route::get('detail-pengunduran-diri-form/{id}','FormPengunduranDiriController@detailForm')->name('detail-pengunduran-diri-form');
 Route::post('save-pengunduran-diri-form','FormPengunduranDiriController@saveForm')->name('save-pengunduran-diri-form');
 
+// Simpanan 
+Route::get('list-simpanan','SimpananController@index')->name('list-simpanan');
+Route::get('add-simpanan','SimpananController@add')->name('add-simpanan');
+Route::get('edit-simpanan/{id}','SimpananController@edit')->name('edit-simpanan');
+Route::post('save-simpanan','SimpananController@save')->name('save-simpanan');
+Route::post('update-simpanan/{id}','SimpananController@update')->name('update-simpanan');
+
 // Messages
 Route::get('/messages','MessageController@index')->name('message');
 
