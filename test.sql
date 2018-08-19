@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2018 at 02:59 PM
+-- Generation Time: Aug 20, 2018 at 01:56 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -40,9 +40,8 @@ CREATE TABLE `banner` (
 --
 
 INSERT INTO `banner` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, '1.jpg', '2018-06-19 04:05:02', '2018-06-19 03:28:06'),
-(2, '2.jpg', '2018-06-19 04:05:12', '2018-06-19 03:28:06'),
-(3, '3.jpg', '2018-06-19 04:05:18', '2018-06-19 03:28:26');
+(3, '9JNjxgFr6QXeDCnnZN5PXIUp5pf40EqTW4uR3JlB.jpeg', '2018-08-19 04:36:39', '2018-08-18 21:36:39'),
+(5, 'SX9vrVE9G0KEAJIR6apsqskkKQuUr738BL9vRTJo.jpeg', '2018-08-18 20:36:44', '2018-08-18 20:36:44');
 
 -- --------------------------------------------------------
 
@@ -312,9 +311,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `nip`, `area`, `rekening`, `bank`, `campus`, `dop`, `dob`, `address`, `post_code`, `phone_home`, `phone`, `email`, `password`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'User Name', '2001617123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'user@mail.com', '$2y$10$TOxZnCjtPzJa/kRxEZkDbOCfHMqTcbg3.6oviKWe50aW8j1ScrrZC', 1, 'e7d3IQS9gyQKX6wtJYkunTcnWansJitElfTEkMOctcCG1ZglaPXAyiTCfTPs', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 'v82opynDxxAy2HyjNzaEHYTTJ097TU8jyK44MwZAFHLIYmW8p6sFUbfWez6T', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
-(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, '8Ns1UKZe6dSS6EukcQA3uhdWd6YPmWD80TQSAqbfKn8M4CaMNAVxle1iYJs2', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
-(5, 'Anthony', '1601217146', 'Haji Yahya no 9', 'Anthony Surianto', 'BCA', 'Jakarta', '13340', '1994-08-16', 'Haji Yahya no 9', '13340', '81385508933', '081385508933', 'anthony.surianto@gmail.com', '$2y$10$VT64pUiLdQbAjTbHBblMT.zcpTDEMLfUdB2rB3stYKGXixicc//Cu', 0, NULL, '2018-07-03 20:25:55', '2018-07-03 20:25:55');
+(2, 'Admin Name', '123123123', '', '', '', '', '', '0000-00-00', '', '', '', '', 'admin@mail.com', '$2y$10$FBnHZkW9oFRnZeWevYV7neeDj80qUn.oB.QhN0CGUhugws5YcBd2W', 1, 's9wC6vtAlfUer2NYowybDwU1h5fikWeQSoKsyGd5KC5koq70byGFKAH0kYSg', '2018-04-09 23:35:32', '2018-04-09 23:35:32'),
+(4, 'username2', '1234567890', 'Jakartawqeowqeuo', '23127918721', 'BCAAA', 'KAMPUS BUNGA', 'Jakarta', '1990-09-16', 'ASNDKLJADJLAD', '1200', '021 890182801', '08123732737', 'user2@mail.com', '$2y$10$0KB.pWVHw5w.i8vX8nGyyu/GcaSPIelL7eLMw9iXctY0gDED5GLKO', 1, 'PF80etns4bWEETqJvsOzBfDRlkMHZCzuezH7qGWxdsvtaY85d9CwKjtdZLa8', '2018-05-06 00:19:54', '2018-05-06 00:19:54'),
+(5, 'Anthony', '1601217146', 'Haji Yahya no 9', 'Anthony Surianto', 'BCA', 'Jakarta', '13340', '1994-08-16', 'Haji Yahya no 9', '13340', '81385508933', '081385508933', 'anthony.surianto@gmail.com', '$2y$10$VT64pUiLdQbAjTbHBblMT.zcpTDEMLfUdB2rB3stYKGXixicc//Cu', 1, NULL, '2018-07-03 20:25:55', '2018-07-03 20:25:55');
 
 --
 -- Indexes for dumped tables
@@ -404,7 +403,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banner`
 --
 ALTER TABLE `banner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `form_dana`
 --

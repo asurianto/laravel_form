@@ -46,10 +46,21 @@ Route::post('update-simpanan/{id}','SimpananController@update')->name('update-si
 Route::get('/messages','MessageController@index')->name('message');
 
 Route::get('/admin/user','AdminController@viewUser')->name('admin-list-user');
-Route::get('/admin/user/{id}/{active}','AdminController@updateUserStatus')->name('admin-update-user-status');
+Route::get('/admin/user-status/{id}/{active}','AdminController@updateUserStatus')->name('admin-update-user-status');
+Route::get('/admin/user-role/{id}/{role_id}','AdminController@updateUserRole')->name('admin-update-user-role');
 
 // Admin Messages
 Route::get('/admin/messages','MessageController@add')->name('add-message');
 Route::post('/admin/messages','MessageController@insert')->name('insert-message');
 Route::get('/admin/messages/{id}','MessageController@delete')->name('delete-message');
+
+
+// Admin Banner
+Route::get('/admin/banner','AdminController@indexBanner')->name('admin-list-banner');
+Route::get('/admin/add-banner','AdminController@addBanner')->name('admin-add-banner');
+Route::post('/admin/banner','AdminController@insertBanner')->name('admin-insert-banner');
+Route::get('/admin/edit-banner/{id}','AdminController@editBanner')->name('admin-edit-banner');
+Route::post('/admin/banner/{id}','AdminController@updateBanner')->name('admin-update-banner');
+Route::get('/admin/banner/{id}','AdminController@deleteBanner')->name('admin-delete-banner');
+
 Auth::routes();

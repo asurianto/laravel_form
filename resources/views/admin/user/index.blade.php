@@ -34,13 +34,19 @@
                                 <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->nip}}</label>  
                                 <label for="name" class="col-md-3 col-form-label text-md-center">{{$record->name}}</label>                        
                                 <label for="name" class="col-md-3 col-form-label text-md-center">Rp. {{ number_format($record->total_dana,2,',','.') }}</label>                        
-                                <label for="name" class="col-md-2 col-form-label text-md-center">
+                                <label for="name" class="col-form-label">
                                     @if($record->active == 0)
-                                        <label for="name" class="col-form-label"><a href="{{ route('admin-update-user-status',['id'=>$record->id,'active'=>1 ]) }}">Set Active</a></label>
+                                        <a href="{{ route('admin-update-user-status',['id'=>$record->id,'active'=>1 ]) }}">Set Active</a>
                                     @elseif($record->active == 1)
-                                        <label for="name" class="col-form-label"><a href="{{ route('admin-update-user-status',['id'=>$record->id,'active'=>0 ]) }}">Set Inactive</a></label>
+                                        <a href="{{ route('admin-update-user-status',['id'=>$record->id,'active'=>0 ]) }}">Set Inactive</a>
                                     @endif
                                 </label>
+                                <label for="name" class="col-form-label text-center">|</label>
+                                @if($record->role_id == 1)
+                                    <label for="name" class="col-form-label text-md-right"><a href="{{ route('admin-update-user-role',['id'=>$record->id,'role_id'=>2 ]) }}">Set as Admin</a></label>
+                                @elseif($record->role_id == 2)
+                                    <label for="name" class="col-form-label text-md-right"><a href="{{ route('admin-update-user-role',['id'=>$record->id,'role_id'=>1 ]) }}">Remove as Admin</a></label>
+                                @endif
                             </div>
                         </div>
                         @endforeach

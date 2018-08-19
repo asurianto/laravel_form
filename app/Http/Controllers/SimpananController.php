@@ -24,7 +24,6 @@ class SimpananController extends Controller
         $request->user()->authorizeRoles(['admin', 'user']);
         $user = $request->user();
         if($request->user()->hasAnyRole(['user'])){
-            $data = (object) array('id','total_simpanan');
             $data = DB::select('
                     select 
                         a.id,
@@ -34,8 +33,9 @@ class SimpananController extends Controller
                     where a.id = :id
             ',['id'=>$user->id]);
             if (count($data) < 1)  {
-                $data->id = 0;
-                $data->total_simpanan = 0;
+                $data[] = (object) array('id','total_simpanan');
+                $data[0]->id = 0;
+                $data[0]->total_simpanan = 0;
             }
         }
         else{
