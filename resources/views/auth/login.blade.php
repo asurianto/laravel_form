@@ -3,13 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-7 slide-content" style="display: -webkit-box;margin:unset !important;">
+        <!-- <div class="col-md-7 slide-content" style="display: -webkit-box;margin:unset !important;">
             @foreach($slider as $value)
                 <img class="slider" src="{{asset('image/'.$value)}}" alt="Smiley face" style="width:100%!important;">
             @endforeach                
             <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
             <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-        </div>
+        </div> -->
         
         <div class="col-md-5">
             <div class="card">

@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-10">
-                            List Forms
+                            Forums
                         </div>
                         @if(Auth::user()->hasAnyRole(['admin']))
                         <div class="col-2">

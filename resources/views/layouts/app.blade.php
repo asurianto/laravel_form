@@ -43,7 +43,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Koperasi Binus University
+                    Forum
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -62,7 +62,7 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link" href="{{ route('message') }}" role="button">
                                 Messages
                                 @isset($notif)
@@ -71,9 +71,9 @@
                                     @endif  
                                 @endisset
                             </a>
-                        </li>
+                        </li> -->
                         @if(Auth::user()->hasAnyRole(['user']))
-                            <li class="nav-item dropdown">
+                            <!-- <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Add Form <span class="caret"></span>
                                 </a>
@@ -85,7 +85,7 @@
                                         Pengunduran Diri
                                     </a>
                                 </div>
-                            </li>
+                            </li> -->
                         @endif
                         @if(Auth::user()->hasAnyRole(['admin']))
                             <li class="nav-item dropdown">
@@ -105,7 +105,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                      
-                                    <a class="dropdown-item" href="{{ route('list-simpanan') }}">
+                                    <!-- <a class="dropdown-item" href="{{ route('list-simpanan') }}">
                                         Simpanan
                                     </a> 
                                     @if(Auth::user()->hasAnyRole(['admin']))
@@ -115,7 +115,7 @@
                                      @endif  
                                     <a class="dropdown-item" href="{{ route('detail-profile',['id'=> Auth::user()->id]) }}">
                                         Profile
-                                    </a>    
+                                    </a>     -->
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
